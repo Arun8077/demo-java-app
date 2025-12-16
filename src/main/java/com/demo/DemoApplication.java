@@ -13,7 +13,7 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String home() {
-        return "Hello from GKE demo!";
+        return "Hello from GKE demo!", We are doing POC on a scalable application over gke;
     }
 
     @GetMapping("/healthz")
