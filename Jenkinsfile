@@ -21,7 +21,7 @@ pipeline {
 
     stage('Checkout') {
       steps {
-        git branch: 'main',
+        git branch: 'branch-1',
             url: 'https://github.com/Arun8077/demo-java-app.git'
       }
     }
