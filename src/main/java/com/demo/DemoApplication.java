@@ -13,7 +13,6 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String home() {
-        int unused = 42;   // ❌ intentional unused variable
         return "Hello from GKE demo! We are doing POC on a scalable application over gke";
     }
 
