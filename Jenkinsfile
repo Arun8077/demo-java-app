@@ -41,7 +41,6 @@ pipeline {
             $SCANNER_HOME/bin/sonar-scanner \
               -Dsonar.projectKey=demo-java-app \
               -Dsonar.projectName=demo-java-app \
-              -Dsonar.branch.name=branch-1 \
               -Dsonar.sources=src/main/java \
               -Dsonar.java.binaries=target/classes
           '''
