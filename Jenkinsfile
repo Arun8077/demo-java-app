@@ -31,7 +31,18 @@ pipeline {
         sh 'mvn clean package -DskipTests'
       }
     }
-
+    stage('SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          sh '''
+            mvn sonar:sonar \
+              -Dsonar.projectKey=demo-java-app \
+              -Dsonar.projectName=demo-java-app \
+              -Dsonar.branch.name=branch-1
+          '''
+        }
+      }
+    }
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE .'
