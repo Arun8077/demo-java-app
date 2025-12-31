@@ -32,10 +32,13 @@ pipeline {
       }
     }
     stage('SonarQube Analysis') {
+      environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+      }
       steps {
         withSonarQubeEnv('sonarqube') {
           sh '''
-            sonar-scanner \
+            $SCANNER_HOME/bin/sonar-scanner \
               -Dsonar.projectKey=demo-java-app \
               -Dsonar.projectName=demo-java-app \
               -Dsonar.branch.name=branch-1 \
@@ -45,7 +48,6 @@ pipeline {
         }
       }
     }
-
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE .'
