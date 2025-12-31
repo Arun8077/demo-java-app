@@ -33,16 +33,19 @@ pipeline {
     }
     stage('SonarQube Analysis') {
       steps {
-        withSonarQubeEnv('sonarqube-container') {
+        withSonarQubeEnv('sonarqube') {
           sh '''
             mvn sonar:sonar \
               -Dsonar.projectKey=demo-java-app \
               -Dsonar.projectName=demo-java-app \
-              -Dsonar.branch.name=branch-1
+              -Dsonar.branch.name=branch-1 \
+              -Dsonar.sources=src/main/java \
+              -Dsonar.java.binaries=target/classes
           '''
         }
       }
     }
+
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE .'
