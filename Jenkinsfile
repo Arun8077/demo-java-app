@@ -35,7 +35,7 @@ pipeline {
       steps {
         withSonarQubeEnv('sonarqube') {
           sh '''
-            mvn sonar:sonar \
+            sonar-scanner \
               -Dsonar.projectKey=demo-java-app \
               -Dsonar.projectName=demo-java-app \
               -Dsonar.branch.name=branch-1 \
