@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"demo-app-svc","namespace":"default"},"spec":{"ports":[{"port":80,"targetPort":8080}],"selector":{"app":"demo-app"},"type":"LoadBalancer"}}
+  creationTimestamp: "2025-12-15T07:23:06Z"
+  finalizers:
+  - gke.networking.io/l4-netlb-v1
+  - service.kubernetes.io/load-balancer-cleanup
+  name: demo-app-svc
+  namespace: default
+  resourceVersion: "1765783423162319005"
+  uid: 42dd4df9-0d8f-49eb-b421-bcf22a1b5d9c
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 34.118.227.133
+  clusterIPs:
+  - 34.118.227.133
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 32041
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: demo-app
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.14.163.50
+      ipMode: VIP

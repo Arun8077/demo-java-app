@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: asia-south1-docker.pkg.dev/cwp-arun-1764754197/demo-repo/demo-java-app:v2
+        image: asia-south1-docker.pkg.dev/cwp-arun-1764754197/demo-repo/demo-java-app:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -30,7 +30,7 @@ spec:
             memory: "1Gi"
         readinessProbe:
           httpGet:
-            path: /healthz
+            path: /wrong
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 10
@@ -46,7 +46,7 @@ kind: Service
 metadata:
   name: demo-app-svc
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: demo-app
   ports:
