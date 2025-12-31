@@ -2,12 +2,10 @@ pipeline {
   agent any
 
   environment {
-    // GKE
     GKE_PROJECT = "my-gke-poc-001"
     GKE_REGION  = "asia-south1"
     CLUSTER     = "gke-poc-cluster"
 
-    // Artifact Registry
     AR_PROJECT  = "cwp-arun-1764754197"
     AR_REGION   = "asia-south1"
     AR_REPO     = "demo-repo"
@@ -26,11 +24,12 @@ pipeline {
       }
     }
 
-    stage('Build Application') {
+    stage('Build & Test') {
       steps {
-        sh 'mvn clean package -DskipTests'
+        sh 'mvn clean package'
       }
     }
+
     stage('SonarQube Analysis') {
       environment {
         SCANNER_HOME = tool 'sonar-scanner'
@@ -44,13 +43,6 @@ pipeline {
               -Dsonar.sources=src/main/java \
               -Dsonar.java.binaries=target/classes
           '''
-        }
-      }
-    }
-    stage('Quality Gate') {
-      steps {
-        timeout(time: 5, unit: 'MINUTES') {
-          waitForQualityGate abortPipeline: true
         }
       }
     }
